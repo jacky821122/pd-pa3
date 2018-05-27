@@ -14,6 +14,7 @@ public:
     void evaluateFG(const vector<double> &x, double &f, vector<double> &g);
     void evaluateF(const vector<double> &x, double &f);
     unsigned dimension();
+private:
     unsigned _dimension;
     double _gamma;
     double _lambda;

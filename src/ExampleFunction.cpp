@@ -34,12 +34,9 @@ void ExampleFunction::evaluateFG(const vector<double> &x, double &f, vector<doub
     yMin = mYExpMul / mYExp;
     double WA = xMax - xMin + yMax - yMin;
     f = WA; // objective function
-    // cout << "FUCK " << xExp << " " << xExpMul << endl;
-    // cout << "xMax " << xMax << " xMin " << xMin << endl;
-    // cout << "yMax " << yMax << " yMin " << yMin << endl;
+
     for(unsigned i = 0; i < (x.size() / 2); ++i)
     {
-        // cout << i << "," << _placement.numModules() << endl;
         double son;
         double mom;
         
@@ -51,7 +48,6 @@ void ExampleFunction::evaluateFG(const vector<double> &x, double &f, vector<doub
         double mXExpTmp = exp(xTmp / _gamma * -1);
         son = ( mXExp * mXExpTmp ) - ( 1 / _gamma * mXExp * xTmp * mXExpTmp ) + ( 1 / _gamma * mXExpMul * mXExpTmp );
         mom = mXExp * mXExp;
-        // cout << son / mom << endl;
         g[2 * i + 0] -= son / mom; // gradient function of X
         
         double yTmp = x[2 * i + 1];
@@ -62,9 +58,7 @@ void ExampleFunction::evaluateFG(const vector<double> &x, double &f, vector<doub
         double mYExpTmp = exp(yTmp / _gamma * -1);
         son = ( mYExp * mYExpTmp ) - ( 1 / _gamma * mYExp * yTmp * mYExpTmp ) + ( 1 / _gamma * mYExpMul * mYExpTmp );
         mom = mYExp * mYExp;
-        // cout << son / mom << endl;
         g[2 * i + 1] -= son / mom; // gradient function of Y
-        // cout << "g[" << 2*i+0 << "] " << g[2*i+0] << " g[" << 2*i+1 << "] " << g[2*i+1] << endl;
     }
 }
 

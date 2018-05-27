@@ -1,34 +1,23 @@
 CC = g++
-CFLAGS =  -Iinclude -O2 -Wall -D_GLIBCXX_ISE_CXX11_ABI=1
-LDFLAGS = -Llib  -lDetailPlace -lGlobalPlace -lLegalizer -lPlacement -lParser -lPlaceCommon
-
-OBJECTS = GlobalPlacer.o  main.o ExampleFunction.o
+CFLAGS = -Isrc -O3 -Wall -D_GLIBCXX_ISE_CXX11_ABI=1
+LDFLAGS = -Lsrc -lDetailPlace -lGlobalPlace -lLegalizer -lPlacement -lParser -lPlaceCommon
+CPPS = $(wildcard src/*.cpp)
+OBJECTS = $(addprefix obj/,$(notdir $(CPPS:.cpp=.o)))
 EXECUTABLE = place
 
-all: $(EXECUTABLE)
+all: obj $(EXECUTABLE)
 	
+obj:
+	mkdir $@
+
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(OBJECTS) $(LDFLAGS) -o $(EXECUTABLE)
+	$(CC) $^ $(LDFLAGS) -o $@
 
-GlobalPlacer.o: GlobalPlacer.cpp include/GlobalPlacer.h \
- include/Placement.h include/Module.h include/Pin.h include/Rectangle.h \
- include/Net.h include/Row.h include/ExampleFunction.h \
- include/NumericalOptimizerInterface.h include/NumericalOptimizer.h
-	$(CC) $(CFLAGS) -c  GlobalPlacer.cpp
-
-ExampleFunction.o: ExampleFunction.cpp include/ExampleFunction.h \
- include/NumericalOptimizerInterface.h
-	$(CC) $(CFLAGS) -c  ExampleFunction.cpp
-
-main.o: main.cpp include/Placement.h include/Module.h include/Pin.h \
- include/Rectangle.h include/Net.h include/Row.h include/Util.h \
-  include/GlobalPlacer.h include/Placement.h include/arghandler.h \
-   include/DPlace.h include/TetrisLegal.h include/Util.h \
-    include/ParamPlacement.h include/arghandler.h
-	$(CC) $(CFLAGS) -c  main.cpp
+obj/%.o: src/%.cpp
+	$(CC) $(CFLAGS) -o $@ -c $^
 
 clean:
-	rm -f *.o $(EXECUTABLE)
+	rm -f $(OBJECTS) $(EXECUTABLE)
 
 
 

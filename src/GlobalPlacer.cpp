@@ -103,34 +103,6 @@ void GlobalPlacer::place()
         }
     }
 
-    // ExampleFunction ef(_placement, gamma); // require to define the object function and gradient function
-
- //    vector<double> x(_placement.numModules() * 2); // solution vector, size: num_blocks*2 
- //                                                   // each 2 variables represent the X and Y dimensions of a block
- //    for(unsigned i = 0; i < x.size(); ++i) // initialize the solution vector
- //    {
- //        x[i] = 0.005;
- //    }
- //    for(unsigned i = 0; i < 5000; ++i)
- //    {
- //        x[i] = 0.002;
- //    }
-
- //    NumericalOptimizer no(ef);
- //    no.setX(x); // set initial solution
- //    no.setNumIteration(35); // user-specified parameter
- //    no.setStepSizeBound(1); // user-specified parameter
- //    no.solve(); // Conjugate Gradient solver
-
- //    // cout << "Block number: " << _placement.numModules() << endl;
- //    cout << "Current solution:" << endl;
- //    for (unsigned i = 0; i < no.dimension(); i++) {
- //        cout << "x[" << i << "] = " << no.x(i) << endl;
- //    }
- //    cout << "Objective: " << no.objective() << endl;
-	// ////////////////////////////////////////////////////////////////
-
-
 }
 
 
