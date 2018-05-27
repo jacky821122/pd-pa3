@@ -56,15 +56,15 @@ void GlobalPlacer::place()
                 // x[2 * j + 1] = _placement.module(_placement.net(i).pin(j).moduleId()).y();
                 deltaPinBlock[2 * j + 0] = _placement.net(i).pin(j).x() - _placement.module(_placement.net(i).pin(j).moduleId()).x();
                 deltaPinBlock[2 * j + 1] = _placement.net(i).pin(j).y() - _placement.module(_placement.net(i).pin(j).moduleId()).y();
-                cout << x[2 * j + 0] << " ";
-                cout << x[2 * j + 1] << " ";
+                // cout << x[2 * j + 0] << " ";
+                // cout << x[2 * j + 1] << " ";
             }
             cout << endl;
 
             NumericalOptimizer no(ef);
             no.setX(x);
-            no.setNumIteration(30);
-            no.setStepSizeBound(80);
+            no.setNumIteration(15);
+            no.setStepSizeBound(5);
             no.solve();
 
             for(unsigned j = 0; j < numPins; ++j)
@@ -74,18 +74,18 @@ void GlobalPlacer::place()
                 _placement.module(_placement.net(i).pin(j).moduleId()).setPosition(position_x, position_y);
             }
 
-            cout << "Block number: " << this->_placement.numModules() << endl;
-            cout << "Current solution:" << endl;
-            for (unsigned i = 0; i < no.dimension(); i++) {
-                cout << "x[" << i << "] = " << no.x(i) << endl;
-            }
-            cout << "Objective: " << no.objective() << endl;
+            // cout << "Block number: " << this->_placement.numModules() << endl;
+            // cout << "Current solution:" << endl;
+            // for (unsigned i = 0; i < no.dimension(); i++) {
+                // cout << "x[" << i << "] = " << no.x(i) << endl;
+            // }
+            // cout << "Objective: " << no.objective() << endl;
         }
 
-        for(unsigned i = 0; i < _placement.numModules(); ++i)
-        {
-            cout << "(" << _placement.module(i).x() << "," << _placement.module(i).y() << ")" << endl;
-        }
+        // for(unsigned i = 0; i < _placement.numModules(); ++i)
+        // {
+            // cout << "(" << _placement.module(i).x() << "," << _placement.module(i).y() << ")" << endl;
+        // }
     }
 
     else

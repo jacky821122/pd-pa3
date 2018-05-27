@@ -16,6 +16,7 @@ void ExampleFunction::evaluateFG(const vector<double> &x, double &f, vector<doub
 {
     double xExp = 0, yExp = 0, mXExp = 0, mYExp = 0, xExpMul = 0, yExpMul = 0, mXExpMul = 0, mYExpMul = 0;
     double xMax = 0, yMax = 0, xMin = 0, yMin = 0;
+    double dense = 0;
     for(unsigned i = 0; i < (x.size() / 2); ++i)
     {
         xExp     += exp(x[2 * i + 0] / _gamma)     ;
@@ -26,14 +27,13 @@ void ExampleFunction::evaluateFG(const vector<double> &x, double &f, vector<doub
         yExpMul  += exp(x[2 * i + 1] / _gamma)      * x[2 * i + 1];
         mXExpMul += exp(x[2 * i + 0] / _gamma * -1) * x[2 * i + 0];
         mYExpMul += exp(x[2 * i + 1] / _gamma * -1) * x[2 * i + 1];
-        // cout << "FUCK " << exp(x[2 * i + 0] / _gamma) << " " << xExp  * x[2 * i + 0] << endl;
     }
     xMax = xExpMul / xExp;
     yMax = yExpMul / yExp;
     xMin = mXExpMul / mXExp;
     yMin = mYExpMul / mYExp;
     double WA = xMax - xMin + yMax - yMin;
-    f = WA; // objective function
+    f = WA + _lambda * dense * dense; // objective function
 
     for(unsigned i = 0; i < (x.size() / 2); ++i)
     {
@@ -66,6 +66,7 @@ void ExampleFunction::evaluateF(const vector<double> &x, double &f)
 {
     double xExp = 0, yExp = 0, mXExp = 0, mYExp = 0, xExpMul = 0, yExpMul = 0, mXExpMul = 0, mYExpMul = 0;
     double xMax = 0, yMax = 0, xMin = 0, yMin = 0;
+    double dense = 0;
     for(unsigned i = 0; i < (x.size() / 2); ++i)
     {
         xExp     += exp(x[2 * i + 0] / _gamma)     ;
@@ -82,7 +83,7 @@ void ExampleFunction::evaluateF(const vector<double> &x, double &f)
     xMin = mXExpMul / mXExp;
     yMin = mYExpMul / mYExp;
     double WA = xMax - xMin + yMax - yMin;
-    f = WA; // objective function
+    f = WA + _lambda * dense * dense; // objective function
 }
 
 unsigned ExampleFunction::dimension()
